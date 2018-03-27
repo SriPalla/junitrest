@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.javacodegeeks.junitrestweb.api.CountryCodeResponse;
 import com.jayway.jsonpath.JsonPath;
 
 import io.restassured.RestAssured;
@@ -23,7 +25,7 @@ public class CountryCodeRestTest {
 	}
 
 	@Test
-	public void testUserFetchesSuccess() throws ParseException {
+	public void testJsonUsingParser() throws ParseException {
 		Response serviceResponse = get("/country/get/all");
 		Assert.assertEquals(serviceResponse.getStatusCode(), 200);
 		serviceResponse.then()
@@ -36,8 +38,14 @@ public class CountryCodeRestTest {
 		System.out.println(alpha2);
 		List<String> alpha3 = JsonPath.read(serviceResponse.getBody().asString(), "$.RestResponse.result[*].alpha3_code");
 		System.out.println(alpha3);
-		//.body("firstName", equalTo("Vinod"))
-		//.body("lastName", equalTo("Kashyap"))
-		//.body("designation", equalTo("CEO"));
+	}
+
+	@Test
+	public void testJsonUsingJaxb() throws ParseException {
+		Response serviceResponse = get("/country/get/all");
+		Assert.assertEquals(serviceResponse.getStatusCode(), 200);
+		Gson gson = new Gson();
+		CountryCodeResponse response = gson.fromJson(serviceResponse.getBody().asString(), CountryCodeResponse.class);
+		System.out.println(response.getRestResponse().getMessages());
 	}
 }
