@@ -9,5 +9,6 @@ public class CountryCodeResponse {
 
 	public void setRestResponse(RestResponse RestResponse) {
 		this.RestResponse = RestResponse;
+		
 	}
 }
