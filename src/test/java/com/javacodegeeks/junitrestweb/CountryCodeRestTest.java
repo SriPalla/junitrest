@@ -32,12 +32,16 @@ public class CountryCodeRestTest {
 		.body("RestResponse.messages[0]", equalTo("Total [249] records found."));
 		int length = JsonPath.read(serviceResponse.getBody().asString(), "$.RestResponse.result.length()");
 		System.out.println(length);
+		System.out.println();
 		List<String> names = JsonPath.read(serviceResponse.getBody().asString(), "$.RestResponse.result[*].name");
 		System.out.println(names);
+		System.out.println();
 		List<String> alpha2 = JsonPath.read(serviceResponse.getBody().asString(), "$.RestResponse.result[*].alpha2_code");
 		System.out.println(alpha2);
+		System.out.println();
 		List<String> alpha3 = JsonPath.read(serviceResponse.getBody().asString(), "$.RestResponse.result[*].alpha3_code");
 		System.out.println(alpha3);
+		System.out.println();
 	}
 
 	@Test
